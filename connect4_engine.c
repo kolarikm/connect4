@@ -16,8 +16,6 @@ For checking horizontal :: if num_columns - column played < length to win return
 
 For checking vertical  :: same idea as above
 
-For placing a token start at the bottom of the column and check upward to find an open space
-
 */
 
 int place_token(int player, int column, int num_rows, int num_columns, int board[num_rows][num_columns]) {

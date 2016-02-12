@@ -9,6 +9,7 @@ int main(int argc, char* *argv) {
   else {
     int size = atoi(argv[1]);
     int length_to_win = atoi(argv[2]);
+    printf("Game initialized with a board size of %d and a required length of %d to win.\n", size, length_to_win);
   }
   
   return 0;
