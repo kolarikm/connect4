@@ -4,24 +4,7 @@
 
 // The array is passed as a reference in C so it can be modified in every function
 
-// -2 is for a tie
-// -1 is for no winner yet
-// 0 is player 1
-// 1 is player 2
-
-/*
-
-For checking horizontal :: if num_columns - column played < length to win return false
-			|| if column played - length to win < 0 return false
-
-For checking vertical  :: same idea as above
-
-*/
-
 int place_token(int player, int column, int num_rows, int num_columns, int board[num_rows][num_columns]) {
-
-  //Must modify the board
-  //Check from bottom of col and move up to look for an empty space
 
   //Check that the desired column is within bounds
   if (column > (num_columns-1) || column < 0) {
@@ -41,17 +24,35 @@ int place_token(int player, int column, int num_rows, int num_columns, int board
 }
 
 int winner(int num_rows, int num_columns, int length_to_win, int array[num_rows][num_columns]) {
+
   // -2 is for a tie
   // -1 is for no winner yet
   // 0 is player 1
   // 1 is player 2
   // Check horizontal, vertical, diagonal
-
+  
    return 0;
 }
 
 int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
-
+  for (int r = 0; r < num_rows; r++) {
+    for (int c = 0; c <= (num_columns - length_to_win); c++) {
+      int match = 0;
+      if (board[r][c] != -1) {
+	for (int x = 0; x < length_to_win; x++) {
+	  if (board[r][c+x] == board[r][c]) {
+	    match++;
+	  }
+	}
+	if (match == length_to_win) {
+	  printf("Player %d wins.\n", board[r][c]);
+	  return board[r][c];
+	}
+      }
+    }
+  }
+  //No winner yet
+  return -1;
 }
 
 void print_board(int num_rows, int num_columns, int board[num_rows][num_columns]) {
