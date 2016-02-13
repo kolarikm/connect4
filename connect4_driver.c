@@ -21,15 +21,20 @@ int main(int argc, char* *argv) {
       array[r][c] = -1;
     }
   }
-
+  
   place_token(0, 0, size, size, array);
+  place_token(0, 0, size, size, array);
+  place_token(0, 0, size, size, array);
+  place_token(0, 0, size, size, array);
+  /*
   place_token(0, 1, size, size, array);
   place_token(0, 2, size, size, array);
   place_token(1, 3, size, size, array);
   place_token(1, 4, size, size, array);
   place_token(1, 5, size, size, array);
-  place_token(1, 6, size, size, array);
+  */
   check_horiz(size, size, length_to_win, array);
+  check_vert(size, size, length_to_win, array);
   print_board(size, size, array);
   
   return 0;

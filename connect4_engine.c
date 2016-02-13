@@ -55,6 +55,26 @@ int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_
   return -1;
 }
 
+int check_vert(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
+  for (int r = (num_rows - 1); r >= (length_to_win-1); r--) {
+    for (int c = 0; c < num_columns; c++) {
+      int match = 0;
+      if (board[r][c] != -1) {
+	for (int x = 0; x < length_to_win; x++) {
+	  if (board[r-x][c] == board[r][c]) {
+	    match++;
+	  }
+	}
+	if (match == length_to_win) {
+	  printf("Player %d wins.\n", board[r][c]);
+	  return board[r][c];
+	}
+      }
+    }
+  }
+  return -1;
+}
+
 void print_board(int num_rows, int num_columns, int board[num_rows][num_columns]) {
   char print_board[num_rows][num_columns];
   for (int i = 0; i < num_rows; i++) {
