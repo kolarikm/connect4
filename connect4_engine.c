@@ -30,8 +30,14 @@ int winner(int num_rows, int num_columns, int length_to_win, int array[num_rows]
   // 0 is player 1
   // 1 is player 2
   // Check horizontal, vertical, diagonal
+  int h_winner = check_horiz(num_rows, num_columns, length_to_win, array);
+  int v_winner = check_vert(num_rows, num_columns, length_to_win, array);
+  if (h_winner >= 0)
+    return h_winner;
+  if (v_winner >= 0)
+    return v_winner;
   
-   return 0;
+  return -1;
 }
 
 int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
@@ -52,6 +58,27 @@ int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_
     }
   }
   //No winner yet
+  return -1;
+}
+
+int check_f_diag(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
+  for(int r = (length_to_win-1); r < num_rows; r++) {
+    for(int c = 0; c <= (num_columns - length_to_win); c++) {
+      int match = 0;
+      if (board[r][c] != -1) {
+	for (int x=0; x < length_to_win; x++) {
+	  //Currently only checks forward and up, not forward and down
+	  if (board[r][c] == board[r-x][c+x] || board[r][c] == board[r+x][c+x]) {
+	    match++;
+	  }
+	}
+	if (match == length_to_win) {
+	  printf("Player %d wins.\n", board[r][c]);
+	  return board[r][c];
+	}
+      }
+    }
+  }
   return -1;
 }
 
