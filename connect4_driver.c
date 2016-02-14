@@ -37,19 +37,26 @@ int main(int argc, char* *argv) {
   place_token(1, 3, size, size, array);
   place_token(1, 4, size, size, array);
   place_token(1, 5, size, size, array);
-  */
+  
   array[0][0] = 0;
   array[1][1] = 0;
   array[2][2] = 0;
   array[3][3] = 0;
+ 
+  array[3][6] = 1;
+  array[2][7] = 1;
+  array[1][8] = 1;
+  array[0][9] = 1;
+  */
 
-  array[9][6] = 1;
-  array[8][7] = 1;
-  array[7][8] = 1;
-  array[6][9] = 1;
+  array[9][7] = 1;
+  array[8][6] = 1;
+  array[7][5] = 1;
+  array[6][4] = 1;
   check_horiz(size, size, length_to_win, array);
   check_vert(size, size, length_to_win, array);
   check_f_diag(size, size, length_to_win, array);
+  check_b_diag(size, size, length_to_win, array);
   print_board(size, size, array);
   
   return 0;

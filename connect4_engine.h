@@ -6,6 +6,7 @@ int winner(int num_rows, int num_columns, int length_to_win, int array[num_rows]
 int check_horiz(int num_rows, int num_columns, int length_to_win, int array[num_rows][num_columns]);
 int check_vert(int num_rows, int num_columns, int length_to_win, int array[num_rows][num_columns]);
 int check_f_diag(int num_rows, int num_columns, int length_to_win, int array[num_rows][num_columns]);
+int check_b_diag(int num_rows, int num_columns, int length_to_win, int array[num_rows][num_columns]);
 void print_board(int num_rows, int num_columns, int board[num_rows][num_columns]);
 
 #endif

@@ -24,19 +24,22 @@ int place_token(int player, int column, int num_rows, int num_columns, int board
 }
 
 int winner(int num_rows, int num_columns, int length_to_win, int array[num_rows][num_columns]) {
-
-  // -2 is for a tie
-  // -1 is for no winner yet
-  // 0 is player 1
-  // 1 is player 2
-  // Check horizontal, vertical, diagonal
   int h_winner = check_horiz(num_rows, num_columns, length_to_win, array);
   int v_winner = check_vert(num_rows, num_columns, length_to_win, array);
+  int fd_winner = check_f_diag(num_rows, num_columns, length_to_win, array);
+  int bd_winner = check_b_diag(num_rows, num_columns, length_to_win, array);
+
   if (h_winner >= 0)
     return h_winner;
   if (v_winner >= 0)
     return v_winner;
-  
+  if (fd_winner >= 0)
+    return fd_winner;
+  if (bd_winner >= 0)
+    return bd_winner;
+  if (h_winner == -2 || v_winner == -2 || fd_winner == -2 || bd_winner == -2)
+    return -2;
+
   return -1;
 }
 
@@ -61,21 +64,42 @@ int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_
   return -1;
 }
 
-int check_f_diag(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
-  for(int r = (length_to_win-1); r < num_rows; r++) {
-    for(int c = 0; c <= (num_columns - length_to_win); c++) {
+int check_b_diag(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
+  for (int r = (length_to_win-1); r < num_rows; r++) {
+    for (int c = 0; c < (num_columns - length_to_win+1); c++) {
       int match = 0;
       if (board[r][c] != -1) {
-	for (int x=0; x < length_to_win; x++) {
-	  //Currently only checks forward and up, not forward and down
-	  if (board[r][c] == board[r-x][c+x] || board[r][c] == board[r+x][c+x]) {
+	for (int x = 0; x <= length_to_win; x++) {
+	  if (board[r][c] == board[r-x][c+x]) {
 	    match++;
+	    printf("Checking [%d][%d]\n", r-x, c+x);
 	  }
 	}
-	if (match == length_to_win) {
-	  printf("Player %d wins.\n", board[r][c]);
-	  return board[r][c];
+      }
+      if (match == length_to_win) {
+	printf("Player %d wins.\n", board[r][c]);
+	return board[r][c];
+      }
+    }
+  } 
+  return -1;
+}
+
+int check_f_diag(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
+  for (int r = 0; r < (num_rows - length_to_win+1); r++) {
+    for (int c = 0; c < (num_columns - length_to_win+1); c++) {
+      int match = 0;
+      if (board[r][c] != -1) {
+	for (int x = 0; x <= length_to_win; x++) {
+	  if (board[r][c] == board[r+x][c+x]) {
+	    match++;
+	    printf("Checking [%d][%d]\n", r+x, c+x);
+	  }
 	}
+      }
+      if (match == length_to_win) {
+	printf("Player %d wins.\n", board[r][c]);
+	return board[r][c];
       }
     }
   }
