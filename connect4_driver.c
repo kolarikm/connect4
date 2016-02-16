@@ -47,8 +47,9 @@ int main(int argc, char* *argv) {
   array[2][7] = 1;
   array[1][8] = 1;
   array[0][9] = 1;
-  */
+  
 
+  array[1][1] = 0;
   array[9][7] = 1;
   array[8][6] = 1;
   array[7][5] = 1;
@@ -58,6 +59,30 @@ int main(int argc, char* *argv) {
   check_f_diag(size, size, length_to_win, array);
   check_b_diag(size, size, length_to_win, array);
   print_board(size, size, array);
+  */
+  
+  //Set up loop that only exits after winner or tie
+
+  int play = 1;
+  int player = 0;
+  int col;
+  while (play) {
+    
+    printf("Player %d, please choose a column:\n", player+1);
+    scanf("%d", &col);
+    place_token(player, col-1, size, size, array);
+    print_board(size, size, array);
+    int win = winner(size, size, length_to_win, array);
+    if (win == 0 || win == 1) {
+      printf("Player %d wins!\n", win+1);
+      play = 0;
+    }
+    if (win == -2) {
+      printf("Game ends in a tie!\n");
+      play = 0;
+    }
+      player = !player;
+  }
   
   return 0;
 }

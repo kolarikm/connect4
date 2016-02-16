@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "connect4_engine.h"
 
+#define KRED "\x1B[31m"
+
 // The array is passed as a reference in C so it can be modified in every function
 
 int place_token(int player, int column, int num_rows, int num_columns, int board[num_rows][num_columns]) {
@@ -54,7 +56,7 @@ int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_
 	  }
 	}
 	if (match == length_to_win) {
-	  printf("Player %d wins.\n", board[r][c]);
+	  //printf("Player %d wins.\n", board[r][c]);
 	  return board[r][c];
 	}
       }
@@ -72,12 +74,12 @@ int check_b_diag(int num_rows, int num_columns, int length_to_win, int board[num
 	for (int x = 0; x <= length_to_win; x++) {
 	  if (board[r][c] == board[r-x][c+x]) {
 	    match++;
-	    printf("Checking [%d][%d]\n", r-x, c+x);
+	    //printf("Checking [%d][%d]\n", r-x, c+x);
 	  }
 	}
       }
       if (match == length_to_win) {
-	printf("Player %d wins.\n", board[r][c]);
+	//printf("Player %d wins.\n", board[r][c]);
 	return board[r][c];
       }
     }
@@ -93,12 +95,12 @@ int check_f_diag(int num_rows, int num_columns, int length_to_win, int board[num
 	for (int x = 0; x <= length_to_win; x++) {
 	  if (board[r][c] == board[r+x][c+x]) {
 	    match++;
-	    printf("Checking [%d][%d]\n", r+x, c+x);
+	    //printf("Checking [%d][%d]\n", r+x, c+x);
 	  }
 	}
       }
       if (match == length_to_win) {
-	printf("Player %d wins.\n", board[r][c]);
+	//printf("Player %d wins.\n", board[r][c]);
 	return board[r][c];
       }
     }
@@ -117,7 +119,7 @@ int check_vert(int num_rows, int num_columns, int length_to_win, int board[num_r
 	  }
 	}
 	if (match == length_to_win) {
-	  printf("Player %d wins.\n", board[r][c]);
+	  //printf("Player %d wins.\n", board[r][c]);
 	  return board[r][c];
 	}
       }
@@ -133,14 +135,14 @@ void print_board(int num_rows, int num_columns, int board[num_rows][num_columns]
       if (board[i][j] == -1)
 	print_board[i][j] = '.';
       if (board[i][j] == 0)
-	print_board[i][j] = '0';
-      if (board[i][j] == 1)
 	print_board[i][j] = '1';
+      if (board[i][j] == 1)
+	print_board[i][j] = '2';
     }
   }
   for (int i = 0; i < num_rows; i++) {
     for (int j = 0; j < num_columns; j++) {
-      printf(" %c ", print_board[i][j]);
+	printf(" %c ", print_board[i][j]);
     }
     printf("\n");
   }
