@@ -40,7 +40,61 @@ void winner_horizontal_r0(CuTest *tc) {
   array[0][3] = 0;
 
   answer = winner(num_rows, num_columns, 4, array);
+  CuAssertIntEquals_Msg(tc, "0s in top row", 0, answer);
+}
+
+void winner_horizontal_r6(CuTest *tc) {
+
+  int num_rows = 7;
+  int num_columns = 7;
+  int array[num_rows][num_columns];
+  int answer;
+  ct_initialize(num_rows, num_columns, array);
+
+  array[6][0] = 0;
+  array[6][1] = 0;
+  array[6][2] = 0;
+  array[6][3] = 0;
+
+  answer = winner(num_rows, num_columns, 4, array);
   CuAssertIntEquals_Msg(tc, "0s in bottom row", 0, answer);
+
+}
+
+void winner_horizontal_r0_corner(CuTest *tc) {
+
+  int num_rows = 7;
+  int num_columns = 7;
+  int array[num_rows][num_columns];
+  int answer;
+  ct_initialize(num_rows, num_columns, array);
+
+  array[0][3] = 0;
+  array[0][4] = 0;
+  array[0][5] = 0;
+  array[0][6] = 0;
+
+  answer = winner(num_rows, num_columns, 4, array);
+  CuAssertIntEquals_Msg(tc, "0s in end of top row", 0, answer);
+
+}
+
+void winner_horizontal_r6_corner(CuTest *tc) {
+
+  int num_rows = 7;
+  int num_columns = 7;
+  int array[num_rows][num_columns];
+  int answer;
+  ct_initialize(num_rows, num_columns, array);
+
+  array[6][3] = 0;
+  array[6][4] = 0;
+  array[6][5] = 0;
+  array[6][6] = 0;
+
+  answer = winner(num_rows, num_columns, 4, array);
+  CuAssertIntEquals_Msg(tc, "0s in bottom row", 0, answer);
+
 }
 
 /*******************************************************************************************
@@ -75,6 +129,43 @@ void place_token_c1(CuTest *tc) {
       }
     }
   }
+}
+
+void place_7tokens_c3(CuTest *tc) {
+
+  int num_rows = 7;
+  int num_columns = 7;
+  int array[num_rows][num_columns];
+  ct_initialize(num_rows, num_columns, array);
+
+  place_token(1, 3, num_rows, num_columns, array);
+  place_token(1, 3, num_rows, num_columns, array);
+  place_token(1, 3, num_rows, num_columns, array);
+  place_token(1, 3, num_rows, num_columns, array);
+  place_token(1, 3, num_rows, num_columns, array);
+  place_token(1, 3, num_rows, num_columns, array);
+  place_token(1, 3, num_rows, num_columns, array);
+
+  // make sure there is a 1 in every cell of column 3 and a -1 everywhere else
+  CuAssertIntEquals_Msg(tc, "Drop 1 into empty column 3", 1, array[num_rows-1][3]);
+  int r, c;
+  for (r = 0; r < num_rows; r++) {
+    for (c = 0; c < num_columns; c++) {
+      if (c != 3) {
+	CuAssertIntEquals_Msg(tc, "Should be empty", EMPTY, array[r][c]);
+      }
+    }
+  }
+}
+
+void place_token_fail1(CuTest *tc) {
+  int num_rows = 7;
+  int num_columns = 7;
+  int array[num_rows][num_columns];
+  ct_initialize(num_rows, num_columns, array);
+
+  int answer = place_token(1, 8, num_rows, num_columns, array);
+  CuAssertIntEquals_Msg(tc, "Drop 1 into column out of range", 0, answer);
 }
 
 
@@ -122,7 +213,6 @@ void horizontal_row0(CuTest* tc)
   answer = winner(num_rows, num_columns, 4, array);
   CuAssertIntEquals_Msg(tc, "4 in a row, horizontal", 0, answer);
 }
-
 
 void vertical_column1(CuTest* tc) 
 {
@@ -296,7 +386,12 @@ CuSuite* c4_engine_suite() {
    CuSuite* suite = CuSuiteNew();
 
    SUITE_ADD_TEST(suite, winner_horizontal_r0);
+   SUITE_ADD_TEST(suite, winner_horizontal_r6);
+   SUITE_ADD_TEST(suite, winner_horizontal_r0_corner);
+   SUITE_ADD_TEST(suite, winner_horizontal_r6_corner);
    SUITE_ADD_TEST(suite, place_token_c1);
+   SUITE_ADD_TEST(suite, place_7tokens_c3);
+   SUITE_ADD_TEST(suite, place_token_fail1);
 
    SUITE_ADD_TEST(suite, horizontal_row0);
    SUITE_ADD_TEST(suite, vertical_column1);
