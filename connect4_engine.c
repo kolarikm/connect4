@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include "connect4_engine.h"
 
-#define KRED "\x1B[31m"
-
-// The array is passed as a reference in C so it can be modified in every function
-
 int place_token(int player, int column, int num_rows, int num_columns, int board[num_rows][num_columns]) {
 
   //Check that the desired column is within bounds
@@ -56,7 +52,6 @@ int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_
 	  }
 	}
 	if (match == length_to_win) {
-	  //printf("Player %d wins.\n", board[r][c]);
 	  return board[r][c];
 	}
       }
@@ -74,12 +69,10 @@ int check_b_diag(int num_rows, int num_columns, int length_to_win, int board[num
 	for (int x = 0; x <= length_to_win; x++) {
 	  if (board[r][c] == board[r-x][c+x]) {
 	    match++;
-	    //printf("Checking [%d][%d]\n", r-x, c+x);
 	  }
 	}
       }
       if (match == length_to_win) {
-	//printf("Player %d wins.\n", board[r][c]);
 	return board[r][c];
       }
     }
@@ -95,12 +88,10 @@ int check_f_diag(int num_rows, int num_columns, int length_to_win, int board[num
 	for (int x = 0; x <= length_to_win; x++) {
 	  if (board[r][c] == board[r+x][c+x]) {
 	    match++;
-	    //printf("Checking [%d][%d]\n", r+x, c+x);
 	  }
 	}
       }
       if (match == length_to_win) {
-	//printf("Player %d wins.\n", board[r][c]);
 	return board[r][c];
       }
     }
@@ -119,7 +110,6 @@ int check_vert(int num_rows, int num_columns, int length_to_win, int board[num_r
 	  }
 	}
 	if (match == length_to_win) {
-	  //printf("Player %d wins.\n", board[r][c]);
 	  return board[r][c];
 	}
       }

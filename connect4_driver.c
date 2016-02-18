@@ -21,45 +21,6 @@ int main(int argc, char* *argv) {
       array[r][c] = -1;
     }
   }
-  /*
-  place_token(0, 0, size, size, array);
-  place_token(0, 1, size, size, array);
-  place_token(0, 1, size, size, array);
-  place_token(0, 2, size, size, array);
-  place_token(0, 2, size, size, array);
-  place_token(0, 2, size, size, array);
-  place_token(0, 3, size, size, array);
-  place_token(0, 3, size, size, array);
-  place_token(0, 3, size, size, array);
-  place_token(0, 3, size, size, array);
-  place_token(0, 1, size, size, array);
-  place_token(0, 2, size, size, array);
-  place_token(1, 3, size, size, array);
-  place_token(1, 4, size, size, array);
-  place_token(1, 5, size, size, array);
-  
-  array[0][0] = 0;
-  array[1][1] = 0;
-  array[2][2] = 0;
-  array[3][3] = 0;
- 
-  array[3][6] = 1;
-  array[2][7] = 1;
-  array[1][8] = 1;
-  array[0][9] = 1;
-  
-
-  array[1][1] = 0;
-  array[9][7] = 1;
-  array[8][6] = 1;
-  array[7][5] = 1;
-  array[6][4] = 1;
-  check_horiz(size, size, length_to_win, array);
-  check_vert(size, size, length_to_win, array);
-  check_f_diag(size, size, length_to_win, array);
-  check_b_diag(size, size, length_to_win, array);
-  print_board(size, size, array);
-  */
   
   //Set up loop that only exits after winner or tie
 
@@ -70,7 +31,9 @@ int main(int argc, char* *argv) {
     
     printf("Player %d, please choose a column:\n", player+1);
     scanf("%d", &col);
-    place_token(player, col-1, size, size, array);
+    int place = place_token(player, col-1, size, size, array);
+    if (place == 0)
+      continue;
     print_board(size, size, array);
     int win = winner(size, size, length_to_win, array);
     if (win == 0 || win == 1) {
@@ -86,10 +49,3 @@ int main(int argc, char* *argv) {
   
   return 0;
 }
-
-/*
-  printf("%c[1;31mHello, world!\n", 27); // green
-  31 red
-  34 blue
-  36 cyan
- */
