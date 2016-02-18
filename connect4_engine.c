@@ -26,6 +26,7 @@ int winner(int num_rows, int num_columns, int length_to_win, int array[num_rows]
   int v_winner = check_vert(num_rows, num_columns, length_to_win, array);
   int fd_winner = check_f_diag(num_rows, num_columns, length_to_win, array);
   int bd_winner = check_b_diag(num_rows, num_columns, length_to_win, array);
+  int tie = check_tie(num_rows, num_columns, array);
 
   if (h_winner >= 0)
     return h_winner;
@@ -35,10 +36,20 @@ int winner(int num_rows, int num_columns, int length_to_win, int array[num_rows]
     return fd_winner;
   if (bd_winner >= 0)
     return bd_winner;
-  if (h_winner == -2 || v_winner == -2 || fd_winner == -2 || bd_winner == -2)
+  if (tie == -2)
     return -2;
 
   return -1;
+}
+
+int check_tie(int num_rows, int num_columns, int array[num_rows][num_columns]) {
+  for (int r = 0; r < num_rows; r++) {
+    for (int c = 0; c < num_columns; c++) {
+      if (array[r][c] == -1)
+	return 0;
+    }
+  }
+  return -2;
 }
 
 int check_horiz(int num_rows, int num_columns, int length_to_win, int board[num_rows][num_columns]) {
